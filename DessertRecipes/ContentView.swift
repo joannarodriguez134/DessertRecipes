@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+//    let desserts: Meals
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List {
+                ForEach(Meals.MOCK_MEALS) { dessert in
+                    NavigationLink {
+                        RecipeDetailsView(desserts: dessert)
+                    } label: {
+                        HStack(spacing: 10) {
+                            AsyncImage(url: URL(string: dessert.strMealThumb))
+                                .scaledToFill()
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle())
+                            Text(dessert.strMeal)
+                                .fontWeight(.semibold)
+                        }
+                    }
+                }
+            }
         }
-        .padding()
     }
 }
 
