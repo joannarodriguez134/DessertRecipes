@@ -10,6 +10,7 @@ import SwiftUI
 struct RecipeDetailsView: View {
     let desserts: Meals
     @State private var recipes: Recipes?
+    @State var selectedTab = 0
     @EnvironmentObject var dessertService: DessertService
     let measurementKeyPaths: [KeyPath<Recipes, String?>] = [
 
@@ -62,36 +63,46 @@ struct RecipeDetailsView: View {
     var body: some View {
         ScrollView {
             if let recipes = recipes {
-                VStack(spacing: 10) {
+                VStack(spacing: 20) {
                     AsyncImage(url: URL(string: recipes.strMealThumb))
                         .scaledToFill()
                         .frame(width: 350, height: 350)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
-                    Text(recipes.strMeal)
-                        .fontWeight(.heavy)
-                        .font(.largeTitle)
-
-                    Text(recipes.strInstructions)
-                        .font(.caption)
                     
-                    VStack(alignment: .leading, spacing: 5) {
-                                            ForEach(Array(zip(measurementKeyPaths, ingredientsKeyPaths)), id: \.0) { (measureKeyPath, ingredientKeyPath) in
-                                                if let measure = recipes[keyPath: measureKeyPath], !measure.isEmpty,
-                                                   let ingredient = recipes[keyPath: ingredientKeyPath], !ingredient.isEmpty {
-                                                    HStack {
-                                                        Text(measure)
-                                                        Text(ingredient)
+                        
+                        Text(recipes.strMeal)
+                            .fontWeight(.heavy)
+                            .font(.largeTitle)
+                        
+        
+                    Picker("", selection: $selectedTab) {
+                        Text("Instructions").tag(0)
+                        Text("Ingredients & Measurements").tag(1)
+                    }
+                    .pickerStyle(.segmented)
+                    
+                    if selectedTab == 0 {
+                        Text(recipes.strInstructions)
+                            .font(.caption)
+                    } else {
+                        VStack(alignment: .leading, spacing: 5) {
+                                                ForEach(Array(zip(measurementKeyPaths, ingredientsKeyPaths)), id: \.0) { (measureKeyPath, ingredientKeyPath) in
+                                                    if let measure = recipes[keyPath: measureKeyPath], !measure.isEmpty,
+                                                       let ingredient = recipes[keyPath: ingredientKeyPath], !ingredient.isEmpty {
+                                                        HStack {
+                                                            Text(measure)
+                                                            Text(ingredient)
+                                                        }
+                                                        .foregroundStyle(Color.gray)
                                                     }
                                                 }
                                             }
-                                        }
-                    
-                    
-
+                    }
+                        
                     
                 }
-                .multilineTextAlignment(.leading)
-                .padding(.horizontal, 5)
+                .padding(.horizontal, 10)
+                .padding(.vertical)
             } else {
                 Text("Loading...")
             }
