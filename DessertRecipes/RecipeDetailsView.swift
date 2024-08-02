@@ -11,7 +11,7 @@ struct RecipeDetailsView: View {
     let desserts: Meals
     @State private var recipes: Recipes?
     @EnvironmentObject var dessertService: DessertService
-    let measurements: [KeyPath<Recipes, String?>] = [
+    let measurementKeyPaths: [KeyPath<Recipes, String?>] = [
 
         \Recipes.strMeasure1,
          \Recipes.strMeasure2,
@@ -35,7 +35,7 @@ struct RecipeDetailsView: View {
          \Recipes.strMeasure20
         ]
     
-    let ingredients: [KeyPath<Recipes, String?>] = [
+    let ingredientsKeyPaths: [KeyPath<Recipes, String?>] = [
 
         \Recipes.strIngredient1,
          \Recipes.strIngredient2,
@@ -74,18 +74,19 @@ struct RecipeDetailsView: View {
                     Text(recipes.strInstructions)
                         .font(.caption)
                     
-
-                        ForEach(0..<measurements.count, id: \.self) { index in
-                            if let strMeasure =  recipes[keyPath: measurements[index]], !strMeasure.isEmpty {
-                                Text(strMeasure)
-                            }
-                        }
+                    VStack(alignment: .leading, spacing: 5) {
+                                            ForEach(Array(zip(measurementKeyPaths, ingredientsKeyPaths)), id: \.0) { (measureKeyPath, ingredientKeyPath) in
+                                                if let measure = recipes[keyPath: measureKeyPath], !measure.isEmpty,
+                                                   let ingredient = recipes[keyPath: ingredientKeyPath], !ingredient.isEmpty {
+                                                    HStack {
+                                                        Text(measure)
+                                                        Text(ingredient)
+                                                    }
+                                                }
+                                            }
+                                        }
                     
-                    ForEach(0..<ingredients.count, id: \.self) { index in
-                        if let strIngredient =  recipes[keyPath: ingredients[index]], !strIngredient.isEmpty {
-                            Text(strIngredient)
-                        }
-                    }
+                    
 
                     
                 }
