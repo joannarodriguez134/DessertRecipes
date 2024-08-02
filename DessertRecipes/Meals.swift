@@ -22,9 +22,9 @@ struct Meals: Decodable, Identifiable, Hashable {
 
 extension Meals {
     static let MOCK_MEALS: [Meals] = [ 
-        .init(id: UUID().uuidString, strMeal: "Apam balik", strMealThumb: "https://www.themealdb.com//images//media//meals//adxcbq1619787919.jpg"),
-        .init(id: UUID().uuidString, strMeal: "Apple & Blackberry Crumble", strMealThumb: "https:/www.themealdb.com//images//media/meals//xvsurr1511719182.jpg"),
-        .init(id: UUID().uuidString, strMeal: "Apple Frangipan Tart", strMealThumb: "https://www.themealdb.com//images//media//meals//wxywrq1468235067.jpg")
+        .init(id: "53049", strMeal: "Apam balik", strMealThumb: "https://www.themealdb.com//images//media//meals//adxcbq1619787919.jpg"),
+        .init(id: "52893", strMeal: "Apple & Blackberry Crumble", strMealThumb: "https:/www.themealdb.com//images//media/meals//xvsurr1511719182.jpg"),
+        .init(id: "52768", strMeal: "Apple Frangipan Tart", strMealThumb: "https://www.themealdb.com//images//media//meals//wxywrq1468235067.jpg")
         
     ]
 }
