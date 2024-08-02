@@ -11,7 +11,7 @@ struct RecipeDetailsView: View {
     let desserts: Meals
     @State private var recipes: Recipes?
     @EnvironmentObject var dessertService: DessertService
-    let keyPaths: [KeyPath<Recipes, String?>] = [
+    let measurements: [KeyPath<Recipes, String?>] = [
 
         \Recipes.strMeasure1,
          \Recipes.strMeasure2,
@@ -35,6 +35,30 @@ struct RecipeDetailsView: View {
          \Recipes.strMeasure20
         ]
     
+    let ingredients: [KeyPath<Recipes, String?>] = [
+
+        \Recipes.strIngredient1,
+         \Recipes.strIngredient2,
+         \Recipes.strIngredient3,
+         \Recipes.strIngredient4,
+         \Recipes.strIngredient5,
+         \Recipes.strIngredient6,
+         \Recipes.strIngredient7,
+         \Recipes.strIngredient8,
+         \Recipes.strIngredient9,
+         \Recipes.strIngredient10,
+         \Recipes.strIngredient11,
+         \Recipes.strIngredient12,
+         \Recipes.strIngredient13,
+         \Recipes.strIngredient14,
+         \Recipes.strIngredient15,
+         \Recipes.strIngredient16,
+         \Recipes.strIngredient17,
+         \Recipes.strIngredient18,
+         \Recipes.strIngredient19,
+         \Recipes.strIngredient20
+        ]
+    
     var body: some View {
         ScrollView {
             if let recipes = recipes {
@@ -51,11 +75,18 @@ struct RecipeDetailsView: View {
                         .font(.caption)
                     
 
-                        ForEach(0..<keyPaths.count, id: \.self) { index in
-                            if let strMeasure =  recipes[keyPath: keyPaths[index]], !strMeasure.isEmpty {
+                        ForEach(0..<measurements.count, id: \.self) { index in
+                            if let strMeasure =  recipes[keyPath: measurements[index]], !strMeasure.isEmpty {
                                 Text(strMeasure)
                             }
                         }
+                    
+                    ForEach(0..<ingredients.count, id: \.self) { index in
+                        if let strIngredient =  recipes[keyPath: ingredients[index]], !strIngredient.isEmpty {
+                            Text(strIngredient)
+                        }
+                    }
+
                     
                 }
                 .multilineTextAlignment(.leading)
