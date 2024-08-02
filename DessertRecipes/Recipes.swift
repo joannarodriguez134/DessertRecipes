@@ -26,7 +26,7 @@ struct Recipes: Decodable, Identifiable, Hashable {
     let strIngredient7: String?
     let strIngredient8: String?
     let strIngredient9: String?
-    let strIngredient10: String
+    let strIngredient10: String?
     let strIngredient11: String?
     let strIngredient12: String?
     let strIngredient13: String?

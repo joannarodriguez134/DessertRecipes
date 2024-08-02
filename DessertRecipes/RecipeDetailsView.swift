@@ -11,7 +11,54 @@ struct RecipeDetailsView: View {
     let desserts: Meals
     @State private var recipes: Recipes?
     @EnvironmentObject var dessertService: DessertService
+    let measurements: [KeyPath<Recipes, String?>] = [
 
+        \Recipes.strMeasure1,
+         \Recipes.strMeasure2,
+         \Recipes.strMeasure3,
+         \Recipes.strMeasure4,
+         \Recipes.strMeasure5,
+         \Recipes.strMeasure6,
+         \Recipes.strMeasure7,
+         \Recipes.strMeasure8,
+         \Recipes.strMeasure9,
+         \Recipes.strMeasure10,
+         \Recipes.strMeasure11,
+         \Recipes.strMeasure12,
+         \Recipes.strMeasure13,
+         \Recipes.strMeasure14,
+         \Recipes.strMeasure15,
+         \Recipes.strMeasure16,
+         \Recipes.strMeasure17,
+         \Recipes.strMeasure18,
+         \Recipes.strMeasure19,
+         \Recipes.strMeasure20
+        ]
+    
+    let ingredients: [KeyPath<Recipes, String?>] = [
+
+        \Recipes.strIngredient1,
+         \Recipes.strIngredient2,
+         \Recipes.strIngredient3,
+         \Recipes.strIngredient4,
+         \Recipes.strIngredient5,
+         \Recipes.strIngredient6,
+         \Recipes.strIngredient7,
+         \Recipes.strIngredient8,
+         \Recipes.strIngredient9,
+         \Recipes.strIngredient10,
+         \Recipes.strIngredient11,
+         \Recipes.strIngredient12,
+         \Recipes.strIngredient13,
+         \Recipes.strIngredient14,
+         \Recipes.strIngredient15,
+         \Recipes.strIngredient16,
+         \Recipes.strIngredient17,
+         \Recipes.strIngredient18,
+         \Recipes.strIngredient19,
+         \Recipes.strIngredient20
+        ]
+    
     var body: some View {
         ScrollView {
             if let recipes = recipes {
@@ -26,6 +73,21 @@ struct RecipeDetailsView: View {
 
                     Text(recipes.strInstructions)
                         .font(.caption)
+                    
+
+                        ForEach(0..<measurements.count, id: \.self) { index in
+                            if let strMeasure =  recipes[keyPath: measurements[index]], !strMeasure.isEmpty {
+                                Text(strMeasure)
+                            }
+                        }
+                    
+                    ForEach(0..<ingredients.count, id: \.self) { index in
+                        if let strIngredient =  recipes[keyPath: ingredients[index]], !strIngredient.isEmpty {
+                            Text(strIngredient)
+                        }
+                    }
+
+                    
                 }
                 .multilineTextAlignment(.leading)
                 .padding(.horizontal, 5)
