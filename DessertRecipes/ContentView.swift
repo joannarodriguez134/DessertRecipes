@@ -14,17 +14,22 @@ struct ContentView: View {
         NavigationStack {
             List {
                 ForEach(Meals.MOCK_MEALS) { dessert in
-                    NavigationLink {
-                        RecipeDetailsView(desserts: dessert)
-                    } label: {
-                        HStack(spacing: 10) {
-                            AsyncImage(url: URL(string: dessert.strMealThumb))
-                                .scaledToFill()
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle())
-                            Text(dessert.strMeal)
-                                .fontWeight(.semibold)
-                        }
+                    ForEach(Recipes.MOCK_Recipes) {
+                        recipe in
+                        
+                        NavigationLink {
+                            RecipeDetailsView(desserts: dessert, recipes: recipe)
+                        } label: {
+                            HStack(spacing: 10) {
+                                AsyncImage(url: URL(string: dessert.strMealThumb))
+                                    .scaledToFill()
+                                    .frame(width: 50, height: 50)
+                                    .clipShape(Circle())
+                                Text(dessert.strMeal)
+                                    .fontWeight(.semibold)
+                            }
+                    }
+                    
                     }
                 }
             }
