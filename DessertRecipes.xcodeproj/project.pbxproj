@@ -17,6 +17,7 @@
 		A78CD6C92C5C3CDC0076C202 /* Meals.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78CD6C82C5C3CDC0076C202 /* Meals.swift */; };
 		A78CD6CB2C5C442D0076C202 /* RecipeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78CD6CA2C5C442D0076C202 /* RecipeDetailsView.swift */; };
 		A78CD6CD2C5C4E4B0076C202 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78CD6CC2C5C4E4B0076C202 /* Recipes.swift */; };
+		A78CD6CF2C5C68D90076C202 /* DessertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78CD6CE2C5C68D90076C202 /* DessertService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		A78CD6C82C5C3CDC0076C202 /* Meals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meals.swift; sourceTree = "<group>"; };
 		A78CD6CA2C5C442D0076C202 /* RecipeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsView.swift; sourceTree = "<group>"; };
 		A78CD6CC2C5C4E4B0076C202 /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
+		A78CD6CE2C5C68D90076C202 /* DessertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				A78CD69E2C5C3C0E0076C202 /* DessertRecipesApp.swift */,
 				A78CD6A02C5C3C0E0076C202 /* ContentView.swift */,
 				A78CD6CA2C5C442D0076C202 /* RecipeDetailsView.swift */,
+				A78CD6CE2C5C68D90076C202 /* DessertService.swift */,
 				A78CD6C82C5C3CDC0076C202 /* Meals.swift */,
 				A78CD6CC2C5C4E4B0076C202 /* Recipes.swift */,
 				A78CD6A22C5C3C110076C202 /* Assets.xcassets */,
@@ -270,6 +273,7 @@
 				A78CD6C92C5C3CDC0076C202 /* Meals.swift in Sources */,
 				A78CD6A12C5C3C0E0076C202 /* ContentView.swift in Sources */,
 				A78CD69F2C5C3C0E0076C202 /* DessertRecipesApp.swift in Sources */,
+				A78CD6CF2C5C68D90076C202 /* DessertService.swift in Sources */,
 				A78CD6CB2C5C442D0076C202 /* RecipeDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
