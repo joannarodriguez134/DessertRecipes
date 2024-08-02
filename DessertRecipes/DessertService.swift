@@ -9,9 +9,6 @@ import Foundation
 
 @MainActor
 class DessertService: ObservableObject {
-    static let shared = DessertService()
-//    @Published var desserts: [Meals]?
-  
     var mealList = [Meals]()
 
     
@@ -46,5 +43,22 @@ class DessertService: ObservableObject {
         return []
         
     }
+    
+    func fetchDessertsById(idMeal: String) async -> Recipes? {
+            if let url = URL(string: "https://themealdb.com/api/json/v1/1/lookup.php?i=\(idMeal)") {
+                var request = URLRequest(url: url)
+                request.httpMethod = "GET"
+
+                do {
+                    let (data, _) = try await URLSession.shared.data(for: request)
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode([String: [Recipes]].self, from: data)
+                    return result["meals"]?.first
+                } catch {
+                    print("Error fetching recipe by ID: \(error)")
+                }
+            }
+            return nil
+        }
 
 }
