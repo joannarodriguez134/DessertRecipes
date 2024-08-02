@@ -11,7 +11,9 @@ import SwiftUI
 struct DessertRecipesApp: App {
     var body: some Scene {
         WindowGroup {
+            let service = DessertService()
             ContentView()
+                .environmentObject(service)
             
         }
     }
