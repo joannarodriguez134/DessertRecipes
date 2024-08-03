@@ -9,11 +9,13 @@ import SwiftUI
 
 @main
 struct DessertRecipesApp: App {
+    @StateObject private var dataController = DataController()
     var body: some Scene {
         WindowGroup {
             let service = DessertService()
-            ContentView()
+            MainTabView()
                 .environmentObject(service)
+                .environment(\.managedObjectContext, dataController.container.viewContext)
             
         }
     }

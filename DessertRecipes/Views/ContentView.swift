@@ -10,11 +10,21 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var dessertService = DessertService()
     @State var desserts = [Meals]()
+    @State private var searchText = ""
+    
+    var searchResults: [Meals] {
+        let filtered = desserts.filter { desserts in
+            let matchesSearchTerm = searchText.isEmpty || desserts.strMeal.localizedCaseInsensitiveContains(searchText)
+            
+            return matchesSearchTerm
+        }
+        return filtered
+    }
 
     var body: some View {
         NavigationStack {
             List {
-                ForEach(desserts) { dessert in
+                ForEach(searchResults) { dessert in
                     NavigationLink {
                         RecipeDetailsView(desserts: dessert)
                             .environmentObject(dessertService)
@@ -28,12 +38,15 @@ struct ContentView: View {
                                 .fontWeight(.semibold)
                         }
                     }
+                    
+                   
                 }
             }
             .task {
                 desserts = await dessertService.fetchDesserts()
             }
             .navigationTitle("Desserts")
+            .searchable(text: $searchText, prompt: "Search for a dessert...")
         }
     }
 }
