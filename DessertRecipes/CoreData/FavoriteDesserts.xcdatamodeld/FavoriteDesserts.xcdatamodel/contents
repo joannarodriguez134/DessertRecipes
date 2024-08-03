@@ -3,6 +3,7 @@
     <entity name="FavoriteDesserts" representedClassName="FavoriteDesserts" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="strArea" optional="YES" attributeType="String"/>
         <attribute name="strMeal" optional="YES" attributeType="String"/>
     </entity>
 </model>

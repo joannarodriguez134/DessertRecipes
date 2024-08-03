@@ -89,6 +89,9 @@ struct RecipeDetailsView: View {
                                 .shadow(radius: 3)
                         }
                     }
+                    
+                    Text(recipes.strArea ?? "")
+                        .font(.caption)
                         
         
                     Picker("", selection: $selectedTab) {
@@ -144,6 +147,7 @@ struct RecipeDetailsView: View {
                 let newFavorite = FavoriteDesserts(context: moc)
                 newFavorite.id = desserts.id
                 newFavorite.strMeal = desserts.strMeal
+                newFavorite.strArea = recipes?.strArea
                 newFavorite.isFavorite = true
             }
             isFavorited.toggle()
