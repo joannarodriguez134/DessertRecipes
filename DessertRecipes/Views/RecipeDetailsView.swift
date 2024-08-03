@@ -10,8 +10,11 @@ import SwiftUI
 struct RecipeDetailsView: View {
     let desserts: Meals
     @State private var recipes: Recipes?
+    @State private var isFavorited = false
     @State var selectedTab = 0
     @EnvironmentObject var dessertService: DessertService
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: []) var favoriteDesserts: FetchedResults<FavoriteDesserts>
     let measurementKeyPaths: [KeyPath<Recipes, String?>] = [
 
         \Recipes.strMeasure1,
@@ -69,10 +72,23 @@ struct RecipeDetailsView: View {
                         .frame(width: 350, height: 350)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                     
-                        
+                    HStack(spacing: 7) {
                         Text(recipes.strMeal)
                             .fontWeight(.heavy)
                             .font(.largeTitle)
+                        
+                        Button(action: {
+                            toggleFavoriteStatus()
+                            
+                        }) {
+                            Image(systemName: isFavorited ? "heart.fill" : "heart")
+                                .foregroundColor(isFavorited ? .red : .gray)
+                                .padding(8)
+                                .background(Color.white.opacity(0.9))
+                                .clipShape(Circle())
+                                .shadow(radius: 3)
+                        }
+                    }
                         
         
                     Picker("", selection: $selectedTab) {
@@ -90,8 +106,8 @@ struct RecipeDetailsView: View {
                                                     if let measure = recipes[keyPath: measureKeyPath], !measure.isEmpty,
                                                        let ingredient = recipes[keyPath: ingredientKeyPath], !ingredient.isEmpty {
                                                         HStack {
-                                                            Text(measure)
                                                             Text(ingredient)
+                                                            Text(measure)
                                                         }
                                                         .foregroundStyle(Color.gray)
                                                     }
@@ -111,10 +127,28 @@ struct RecipeDetailsView: View {
             Task {
                 if let fetchedRecipes = await dessertService.fetchDessertsById(idMeal: desserts.id) {
                     self.recipes = fetchedRecipes
+                    self.isFavorited = favoriteDesserts.contains { $0.id == desserts.id }
                 }
             }
         }
     }
+
+    func toggleFavoriteStatus() {
+            if isFavorited {
+                // Remove from favorites
+                if let favorite = favoriteDesserts.first(where: { $0.id == desserts.id }) {
+                    moc.delete(favorite)
+                }
+            } else {
+                // Add to favorites
+                let newFavorite = FavoriteDesserts(context: moc)
+                newFavorite.id = desserts.id
+                newFavorite.strMeal = desserts.strMeal
+                newFavorite.isFavorite = true
+            }
+            isFavorited.toggle()
+            try? moc.save()
+        }
 }
 
 #Preview {
